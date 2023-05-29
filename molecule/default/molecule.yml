@@ -1,0 +1,19 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: instance
+    image: fedora:38
+    pre_build_image: true
+lint: |
+  set -e
+  yamllint . -c .yamllint
+  ansible-lint -c .ansible-lint
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles/
+verifier:
+  name: ansible
