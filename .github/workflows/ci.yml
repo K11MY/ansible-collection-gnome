@@ -1,0 +1,19 @@
+---
+name: CI
+  'on':
+    pull_requests:
+    push:
+      branches:
+        - main
+jobs:
+  test:
+    name: Molecule
+    runs-on: fedora:38
+  steps:
+    - name: Checkout code base
+      uses: action/checkout@v2
+    - name: Set up python 3
+      uses: actions/setup-python@v2
+      with:
+        python-version:'3.x'
+    - name: Install test dependency
