@@ -1,0 +1,20 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    gnome_packages: 
+      - python3-psutil
+      - dconf
+      - dbus-tools
+      - dbus-daemon
+      - gnome-extensions-app
+      - python3-pip
+  tasks:
+    - name: Install Packages | Gnome Packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ gnome_packages }}"
+    - name: "Include gnome.terminal"
+      ansible.builtin.include_role:
+        name: terminal

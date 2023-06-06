@@ -1,0 +1,243 @@
+---
+- name: Terminal | Check if create_new_profile is set true and profile_id is empty
+  ansible.builtin.fail: 
+    msg: "You need to set create_new_profile to true as a profile_id is not defined"
+  when: 
+    - profile_id is none
+    - create_new_profile is false
+
+- name: Terminal | Check if profile is create_new profile is set to false to custom exisiting profile
+  ansible.builtin.fail: 
+    msg: "You need to set the create_new_profile to false as a profile_id has been defined"
+  when: 
+    - profile_id is not none
+    - create_new_profile is true
+
+- name: Terminal | Create profile script
+  ansible.builtin.shell: "{{ lookup('template', 'create_profile.sh.j2') }}"
+  register: _profile_result 
+  when: create_new_profile 
+
+- name: Terminal | Set new id as custom fact
+  ansible.builtin.set_fact:
+    profile_uuid: "{{ _profile_result.stdout}}"
+  when: create_new_profile
+
+- name: Terminal | Set profile name
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/visible-name"
+    value: "'{{ visible_name | default('Custom')}}'"
+
+- name: Terminal | Set terminal profile
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_id | default(profile_uuid) }}/set-terminal-profile"
+    value: "{{ set_terminal_profile }}"
+
+- name: Terminal | Set existing default terminal profile
+  community.general.dconf:
+    key: /org/gnome/terminal/legacy/profiles:/default
+    value: "'{{ profile_id }}'"
+  when: 
+    - profile_id is not none
+    - profile_uuid is undefined
+
+- name: Terminal | Set new  default terminal profile
+  community.general.dconf:
+    key: /org/gnome/terminal/legacy/profiles:/default
+    value: "'{{ profile_uuid }}'"
+  when: 
+    - profile_uuid is defined
+    - profile_id is none
+  
+- name: Terminal | Set background transparency percent 
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/background-transparency-percent"
+    value: "{{ background_transparency_percent }}"
+
+- name: Terminal | Set background transparency
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/use-transparent-background"
+    value: "{{ use_transparent_background }}"
+
+- name: Terminal | Set background colour
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/background-color"
+    value: "'{{ background_color }}'"
+
+- name: Terminal | Set terminal pallete
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/palette"
+    value: "{{ palette }}"
+
+- name: Terminal | Set highlight colour set
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/highlight-colors-set"
+    value: "{{ highlight_colors_set }}"
+
+- name: Terminal | Set bold color same as foreground
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/bold-color-same-as-fg"
+    value: "{{ bold_color_same_as_fg }}"
+
+- name: Terminal | Set foreground color
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/foreground-color"
+    value: "'{{ foreground_color }}'"
+
+- name: Terminal | Set cursor background color
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/cursor-background-color"
+    value: "'{{ cursor_background_color }}'"
+
+- name: Terminal | Set cursor foreground color
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/cursor-foreground-color"
+    value: "'{{ cursor_foreground_color }}'"
+
+- name: Terminal | Set cursor color set
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/cursor-colors-set"
+    value: "{{ cursor_colors_set }}"
+
+- name: Terminal | Set highlight color set
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/highlight-color-set"
+    value: "{{ highlight_colors_set }}"
+
+- name: Terminal | Set bold is bright
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/bold-is-bright"
+    value: "{{ bold_is_bright }}"
+
+- name: Terminal | Set scrollback to unlimited
+  community.general.dconf:
+    key:  "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/scrollback-unlimited"
+    value: "{{ scrollback_unlimited }}"
+
+- name: Terminal | Use theme colours
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/use-theme-colors"
+    value: "{{ use_theme_colors }}"
+
+- name: Terminal | Set inital terminal size columns
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/default-size-columns"
+    value: "{{ default_size_columns }}"
+
+- name: Terminal | Set inital terminal size rows
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/default-size-rows"
+    value: "{{ default_size_rows }}"
+
+- name: Terminal | Use system font
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/use-system-font"
+    value: "{{ use_system_font }}"
+
+- name: Terminal | Set terminal font
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/font"
+    value: "'{{ terminal_font }}'"
+  when: use_system_font == "false"
+
+- name: Terminal | Set cell width scale
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/cell-width-scale"
+    value: "{{ cell_width_scale }}"
+
+- name: Terminal | Set cell height scale
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/cell-height-scale"
+    value: "{{ cell_height_scale }}"
+
+- name: Terminal | Set text blind mode
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/text-blink-mode"
+    value: "'{{ text_blink_mode }}'"
+
+- name: Terminal | Set cursor shape
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/cursor-shape"
+    value: "'{{ cursor_shape }}'"
+
+- name: Terminal | Set cursor blink mode
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/cursor-blink-mode"
+    value: "'{{ cursor_blink_mode }}'"
+  
+- name: Terminal | Set audio bell
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/audible-bell"
+    value: "'{{ audible_bell }}'"
+
+- name: Terminal | Set scroll bar visibility
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/scrollbar-policy"
+    value: "'{{ scrollbar_policy }}'"
+
+- name: Terminal | Set scroll on output
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/scroll-on-output"
+    value: "'{{ scroll_on_output }}'"
+
+- name: Terminal | Set scroll on keystroke
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/scroll-on-keystroke"
+    value: "'{{ scroll_on_keystroke }}'"
+
+- name: Terminal | Set scrollback lines
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/scrollback-lines"
+    value: "'{{ scrollback_lines }}'"
+  when: scrollback_unlimited == "false" 
+
+- name: Terminal | Set terminal title
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/title"
+    value: "'{{ terminal_title }}'"
+
+- name: Terminal | Set title mode
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/title-mode"
+    value: "'{{ title_mode }}'"
+
+- name: Terminal | Set login shell
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/login-shell"
+    value: "'{{ login_shell }}'"
+
+- name: Terminal | Set terminal to use custom command
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/use-custom-command"
+    value: "'{{ use_custom_command }}'"
+
+- name: Terminal | Set custom command
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/custom-command"
+    value: "'{{ custom_command }}'"
+  when: use_custom_command == "true"
+
+- name: Terminal | Set preserve working directory
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/preserve-working-directory"
+    value: "'{{ preserve_working_directory }}'"
+
+- name: Terminal | Set exit action
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/exit-action"
+    value: "'{{ exit_action }}'"
+
+- name: Terminal | Set backspace binding
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/backspace-binding"
+    value: "'{{ backspace_binding }}'"
+
+- name: Terminal | Set delete binding
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/delete-binding"
+    value: "'{{ delete_binding }}'"
+
+- name: Terminal | Set encoding
+  community.general.dconf:
+    key: "/org/gnome/terminal/legacy/profiles:/:{{ profile_uuid | default(profile_id) }}/encoding"
+    value: "'{{ encoding }}'"

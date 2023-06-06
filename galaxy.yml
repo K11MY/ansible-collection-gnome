@@ -1,0 +1,30 @@
+namespace: gnome
+name: setup
+version: 1.0.0
+readme: README.md
+
+authors:
+- Kim Pham
+
+
+description: This collections aims to automate cutomising your gnome workstation
+
+license:
+- GPL-2.0-or-later
+
+# A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
+# requirements as 'namespace' and 'name'
+tags: []
+
+dependencies: 
+  community.general: '>=3.0.0'
+
+repository: https://github.com/K11MY/ansible-collection-gnome
+documentation: https://github.com/K11MY/ansible-collection-gnome
+homepage: https://github.com/K11MY/ansible-collection-gnome
+issues: https://github.com/K11MY/ansible-collection-gnome/issues
+
+
+build_ignore: []
+
+

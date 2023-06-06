@@ -1,0 +1,61 @@
+---
+# defaults file for gnome/workstation_setup/roles/terminal
+## Create a new profile
+create_new_profile: false
+## Name
+profile_id: 47e2ba9f-c9ef-43eb-836c-16a3b06ef551
+visible_name: Custom
+set_terminal_profile: "true"
+## Transparency 
+background_transparency_percent: 10
+use_transparent_background: true
+
+## Colours
+background_color: "#1E1E2E"
+foreground_color: "#D7DAE0"
+palette: "['rgb(110,108,124)', 'rgb(242,143,173)', 'rgb(171,233,179)', 'rgb(250,227,176)', 'rgb(150,205,251)', 'rgb(221,182,242)', 'rgb(245,194,231)', 'rgb(217,224,238)', 'rgb(152,139,162)', 'rgb(242,143,173)', 'rgb(171,233,179)', 'rgb(250,227,176)', 'rgb(150,205,251)', 'rgb(221,182,242)', 'rgb(245,194,231)', 'rgb(217,224,238)']"
+bold_color_same_as_fg: "true"
+bold_colors_set: "false"
+use_theme_colors: "false"
+bold_is_bright: "false"
+
+## Cursor color
+cursor_background_color: "#F5E0DC"
+cursor_foreground_color: "#1E1E2E"
+cursor_colors_set: "true" 
+
+## Highligts
+highlight_colors_set: "false"
+
+## Text
+default_size_columns: 80
+default_size_rows: 24
+use_system_font: "false"
+terminal_font: Source Code Pro 12
+cell_width_scale: 1.00
+cell_height_scale: 1.00
+text_blink_mode: always # options: never, focused, unfocused and always (default)
+cursor_shape: block # options: ibeam, underline and block (default)
+cursor_blink_mode: system # options: on, off and system (default)
+audible_bell: "true"
+
+## Scrolling
+scrollbar_policy: always # options: never and always (default)
+scroll_on_output: "false" 
+scroll_on_keystroke: "true"
+scrollback_unlimited: "true"
+scrollback_lines: 10000
+
+## Command
+terminal_title: Terminal
+title_mode: replace # options: before, after, ignore and replace (default)
+login_shell: "false"
+use_custom_command: "false"
+custom_command:
+preserve_working_directory: safe # options: never, always, safe (default)
+exit_action: close # options: restart, hold and close (default)
+
+## Compatability
+backspace_binding: ascii-delete # options: auto, ascii-backspace, delete-sequence, tty and ascii-delete (default)
+delete_binding: delete-sequence # options: auto, ascii-backspace, ascii-delete, tty and delete-sequence (default)
+encoding: UTF-8 # options: refer to encoding.txt to view the whole list
