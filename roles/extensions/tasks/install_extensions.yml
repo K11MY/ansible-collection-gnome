@@ -1,0 +1,18 @@
+- name: Extensions | Install python gnome-extension-cli
+  ansible.builtin.pip:
+    name: gnome-extensions-cli
+    state: present
+
+- name: Extensions | Install extensions
+  ansible.builtin.shell: |
+    gext install "{{ item }}"
+  loop: "{{ extension_id }}"
+  register: _gnome_extensions
+  changed_when: '"is already installed" not in _gnome_extensions.stdout'
+
+- name: Extensions | Enable extensions
+  ansible.builtin.shell: |
+    gext enable "{{ item }}"
+  loop: "{{ extension_id }}"
+  register: _gnome_extensions
+  changed_when: '"is already installed" not in _gnome_extensions.stdout'

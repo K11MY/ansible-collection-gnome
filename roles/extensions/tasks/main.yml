@@ -1,0 +1,15 @@
+---
+# tasks file for roles/gnome-extensions
+- import_tasks: install_packages.yml 
+
+- import_tasks: install_extensions.yml
+  when: install_extensions 
+
+- import_tasks: configure_arc_menu.yml
+  when: configure_arc_menu
+
+- import_tasks: configure_alphabetical_grid.yml
+  when: configure_alphabetical_grid
+
+- import_tasks: configure_burn_my_windows.yml
+  when: configure_burn_my_windows

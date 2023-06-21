@@ -15,6 +15,6 @@
         name: "{{ item }}"
         state: latest
       loop: "{{ gnome_packages }}"
-    - name: "Include gnome.terminal"
+    - name: Include gnome.terminal
       ansible.builtin.include_role:
         name: terminal

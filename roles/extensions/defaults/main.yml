@@ -1,0 +1,49 @@
+---
+# defaults file for roles/gnome-extensions
+user_home: kpham
+
+gnome_ext_packages:
+  - gnome-extensions-app
+  - python3-pip
+
+# Tasks
+install_extensions: true
+configure_arc_menu: false
+configure_alphabetical_grid: false
+configure_burn_my_windows: false
+# ------------------------------------------------------- #
+# Extensions
+extension_id:
+  - 4269 # Alphabetical App Grid 
+  - 3628 # Arc Menu
+  - 3193 # Blur my shell
+  - 19 # User Themes 
+  - 4648 # Desktop Cube
+  - 97 # Coverflow Alt-Tab 
+  - 3088 # Extenstion LIst
+  - 3843 # Just Perfection
+  - 4679 # Burn my windows
+  - 1287 # Unit
+# ------------------------------------------------------- #
+
+# Arc Menu
+## Menu layout
+menu_layout: "'Default'"
+
+## Theme colours
+override_menu_theme: true 
+menu_background_color: "'rgb(48,52,70)'"
+menu_border_color: "'rgb(48,52,70)'"
+menu_foreground_color: "'rgb(217,224,238)'"
+menu_item_active_bg_color: "'rgb(238,190,190)'"
+menu_item_active_fg_color: "'rgb(41,44,60)'"
+menu_item_hover_bg_color: "'rgb(242,213,207)'"
+menu_item_hover_fg_color: "'rgb(35,38,52)'"
+
+## Menu Button / Icon
+menu_button_fg_color: "(true, 'rgb(242,213,207)')"
+distro_icon: 2
+# ------------------------------------------------------- #
+
+#Alphabetical Grid
+folder_order_position: "'alphabetical'"

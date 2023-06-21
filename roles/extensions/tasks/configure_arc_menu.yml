@@ -1,0 +1,53 @@
+- name: Arc Menu | Set menu layout 
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-layout
+    value: "{{ menu_layout }}"
+- name: Arc Menu | Overide meny theme
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/override-menu-theme
+    value: "{{ override_menu_theme }}"
+
+- name: Arc Menu | Set menu background color
+  community.general.dconf: 
+    key: /org/gnome/shell/extensions/arcmenu/menu-background-color
+    value: "{{ menu_background_color }}"
+
+- name: Arc Menu | Set menu border color
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-border-color
+    value: "{{ menu_border_color }}"
+
+- name: Arc Menu | Set menu foreground color
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-foreground-color
+    value: "{{ menu_foreground_color }}"
+
+- name: Arc Menu | Set menu item active bg color
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-item-active-bg-color
+    value: "{{ menu_item_active_bg_color }}"
+
+- name: Arc Menu | Set menu item active fg color
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-item-active-fg-color
+    value: "{{ menu_item_active_fg_color }}"
+
+- name: Arc Menu | Set menu item hover bg color
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-item-hover-bg-color
+    value: "{{ menu_item_hover_bg_color }}"
+
+- name: Arc Menu | Set menu item hover fg color
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-item-hover-fg-color
+    value: "{{ menu_item_hover_fg_color }}"
+
+- name: Arc Menu | Set menu icon foreground color
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/menu-button-fg-color
+    value: "{{ menu_button_fg_color }}"
+
+- name: Arc Menu | Set distro icon
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/arcmenu/distro-icon
+    value: "{{ distro_icon }}"

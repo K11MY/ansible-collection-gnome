@@ -1,0 +1,5 @@
+- name: Install Packages | Gnome Packages
+  become: true
+  ansible.builtin.package:
+    name: "{{ gnome_ext_packages }}"
+    state: latest

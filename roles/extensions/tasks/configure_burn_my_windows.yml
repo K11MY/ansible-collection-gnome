@@ -1,0 +1,14 @@
+---
+- name: Check if burn my windows exist in .config
+  ansible.builtin.stat: 
+    path: "/home/{{ user_home }}/.config/burn-my-windows"
+  register: _bmw_directory
+
+- name: List files in burn-my-windows direcoty
+  ansible.builtin.find:
+    paths: "/home/{{ user_home }}/.config/burn-my-windows/profiles"
+    patterns: '*.conf'
+  register: _conf_files 
+
+- debug:
+    var: _conf_files
