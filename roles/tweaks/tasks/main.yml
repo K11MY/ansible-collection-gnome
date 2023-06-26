@@ -1,0 +1,47 @@
+# Gnome Tweaks Apperance 
+- name: Tweaks | Set icon theme
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/icon-theme
+    value: "'{{ icon_theme }}'"
+
+- name: Tweaks | Set user theme name
+  community.general.dconf:
+    key: /org/gnome/shell/extensions/user-theme/name
+    value: "'{{ user_theme_name }}'"
+
+- name: Tweaks | Set GTK Theme 
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/gtk-theme
+    value: "'{{ gtk_theme }}'"
+
+# Gnome Tweaks Fonts 
+- name: Tweaks | Set font
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/monospace-font-name
+    value: "'{{ monospace_font_name }}'"
+
+- name: Tweaks | Font name
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/font-name
+    value: "'{{ font_name }}'"
+
+- name: Tweaks | Document font name
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/document-font-name
+    value: "'{{ document_font_name }}'"
+
+# Gnome Tweaks Windows Title Bar
+- name: Tweaks | Windows title bar double click
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/preferences/action-double-click-titlebar
+    value: "'{{ action_double_click_titlebar }}'"
+
+- name: Tweaks | Windows title bar middle click 
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/preferences/action-middle-click-titlebar
+    value: "'{{ action_middle_click_titlebar }}'"
+
+- name: Tweaks | Windows title bar
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/preferences/action-right-click-titlebar
+    value: "'{{ action_right_click_titlebar }}'"

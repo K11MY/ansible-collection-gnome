@@ -92,9 +92,9 @@ Example playbook to configure a current gnome terminal profile
 License
 -------
 
-BSD
+#TBC
 
 Author Information
 ------------------
 
-Kim Pham
+K11MY

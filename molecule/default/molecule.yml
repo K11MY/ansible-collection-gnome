@@ -17,3 +17,16 @@ provisioner:
     ANSIBLE_ROLES_PATH: ../../roles/
 verifier:
   name: ansible
+scenario:
+  name: default
+  test_sequence:
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - destroy
