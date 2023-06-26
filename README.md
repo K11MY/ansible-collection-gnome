@@ -33,17 +33,30 @@ Below is an example playbook that customises the gnome terminal
   hosts: local
   gather_facts: true
   vars: 
+    # terminal vars
     create_new_profile: true
     profile_id:
     visible_name: Cat
     background_transparency_percent: 10
     use_transparent_background: true
     background_color: "#1E1E2E"
+    # tweaks vars
+    icon_theme: ePapirus-Dark
+    user_theme_name: Catppuccin-Frappe-Standard-Rosewater-Dark
+    font_name: Cantarell 11
+    action_double_click_titlebar: toggle-maximize
+    # background vars
+    user_home: chai
+    bg_default_img_name: background1.jpg
+    bg_default_img_path: "/home/{{ user_home }}/Downloads/{{ bg_default_img_name }}"
   roles:
     - gnome.setup.terminal
+    - gnome.setup.tweaks
+    - gnome.setup.background
 ```
 ## License
 
+TBC 
 
 ## Author
 Kim Pham

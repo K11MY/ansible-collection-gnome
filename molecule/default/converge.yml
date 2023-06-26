@@ -9,12 +9,25 @@
       - dbus-daemon
       - gnome-extensions-app
       - python3-pip
+    user_home: kube
   pre_tasks:
     - name: Install Packages | Gnome Packages
       ansible.builtin.package:
         name: "{{ item }}"
         state: latest
       loop: "{{ gnome_packages }}"
+    - name: User | Create test user for background role
+      ansible.builtin.user:
+        name: "{{ user_home }}"
+        shell: /bin/bash
+        state: present
+    - name: User | Copy background image to /home/"{{ user_home }}"
+      ansible.builtin.copy:
+        src: "../../roles/background/files/{{ item }}"
+        dest: "/home/{{ user_home }}"
+      loop:
+        - bg_dark.jpg
+        - bg_light.jpeg
   tasks:
     - name: Include gnome.terminal
       ansible.builtin.include_role:
@@ -22,3 +35,6 @@
     - name: Include gnome.tweaks
       ansible.builtin.include_role:
         name: tweaks
+    - name: Include gnome.background
+      ansible.builtin.include_role:
+        name: background

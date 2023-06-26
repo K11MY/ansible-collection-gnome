@@ -1,0 +1,23 @@
+- name: Desktop Image | Get current default desktop image
+  ansible.builtin.shell:
+    cmd: dconf read /org/gnome/desktop/background/picture-uri
+  changed_when: false
+  register: _default_bg
+  
+- name: Desktop Image | Set default desktop background
+  community.general.dconf:
+    key: /org/gnome/desktop/background/picture-uri
+    value: "'{{ bg_default_img_path }}'"
+  when: _default_bg.stdout not in bg_default_img_name
+
+- name: Desktop Image | Get current dark desktop image
+  ansible.builtin.shell:
+    cmd: dconf read /org/gnome/desktop/background/picture-uri-dark
+  changed_when: false
+  register: _dark_bg
+
+- name: Desktop Image | Set dark desktop background
+  community.general.dconf:
+    key: /org/gnome/desktop/background/picture-uri-dark
+    value: "'{{ bg_dark_img_path }}'"
+  when:  _dark_bg.stdout not in bg_dark_img_path 
