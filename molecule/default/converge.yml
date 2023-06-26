@@ -9,12 +9,16 @@
       - dbus-daemon
       - gnome-extensions-app
       - python3-pip
-  tasks:
+  pre_tasks:
     - name: Install Packages | Gnome Packages
       ansible.builtin.package:
         name: "{{ item }}"
         state: latest
       loop: "{{ gnome_packages }}"
-    - name: "Include gnome.terminal"
+  tasks:
+    - name: Include gnome.terminal
       ansible.builtin.include_role:
         name: terminal
+    - name: Include gnome.tweaks
+      ansible.builtin.include_role:
+        name: tweaks
