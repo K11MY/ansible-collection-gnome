@@ -1,0 +1,10 @@
+---
+# defaults file for background
+## User home
+user_home: marryjane
+## Default
+bg_default_img_name: bg_light.jpg
+bg_default_img_path: "file:///home/{{ user_home }}/{{ bg_default_img_name }}"
+## Dark
+bg_dark_img_name: bg_dark.jpg
+bg_dark_img_path: "file:///home/{{ user_home }}/{{ bg_dark_img_name }}"
